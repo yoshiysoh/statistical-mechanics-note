@@ -1,0 +1,313 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{amsmath,mathtools}
+
+
+\begin{document}
+
+\title{A Note on Statistical Mechanics}
+\author{Yoshiaki Horiike}
+\date{\today}
+\maketitle
+\begin{abstract}
+  This article briefly reviews the derivation of important formulae of 
+  microcanonical and canonical ensemble.
+\end{abstract}
+
+\section{Microcanonical Ensemble}
+The microcanonical system is an isolated system that does not exchange 
+energy (or particle) outside of the system.
+Microcanonical ensemble assumes that every state with same
+energy $E$ happens equally likely.
+Therefore, $P^\mathrm{M}_i$, the probability\footnote
+{
+  This M stands for ``Microcanonical''.
+}
+which a (quantum) microstate $i$ happens, is given 
+as a fraction of $W(E)$, the total number of microstates with energy $E$.
+\begin{equation*}
+  P^\mathrm{M}_i = \frac{1}{W(E)}
+\end{equation*}
+Ludwig Boltzmann defined the entropy $S$ using this $W(E)$.
+\begin{equation*}
+  S(E)
+  \coloneqq
+  k_\mathrm{B} \ln W(E)
+\end{equation*}
+Here, $k_\mathrm{B}$ is the Boltzmann constant.
+The temperature of this system is defined as the partial differentiation 
+of entropy $S$ by energy $E$.
+\begin{equation*}
+  \frac{1}{T}
+  \coloneqq
+  \frac{\partial S(E)}{\partial E}
+\end{equation*}
+
+\section{Canonical Ensemble}
+Consider a subpart of the microcanonical system. 
+This small subsystem can exchange energy with the rest of whole 
+system. 
+From below of this section, ``system'' means this small subsystem, 
+``bath''\footnote{
+  One can also say ``reservoir''.
+} means the total system except for the small subsystem, 
+``total system'' means a whole system consisting of the system and 
+the bath.
+
+Suppose that the system is in a state $i$ with energy $E_i$.
+$E^\mathrm{bath}$, the energy of the bath is equall to
+total energy $E^\mathrm{tot}$ without the system's energy.
+\begin{equation*}
+  E^\mathrm{bath}
+  =
+  E^\mathrm{tot}
+  -
+  E_i
+\end{equation*}
+By defining 
+\begin{itemize}
+  \item $W(E_i)=1$ as the number of states\footnote{We ignored the situation of degeneracy but the essentials do not change.} of the system with energy $E_i$, 
+  \item $W(E^\mathrm{bath})$ as the number of states of the bath with energy $E^\mathrm{bath}$,
+  \item $W(E^\mathrm{tot})$ as the number of states of the total system with energy $E^\mathrm{tot}$,
+\end{itemize}
+we can calculate $P^\mathrm{C}_i$, the probability\footnote
+{
+  This C indicates ``Canonical''.
+} 
+that system's state is in $i$ with energy $E_i$ as below.
+\begin{align*}
+  P^\mathrm{C}_i
+  =&
+  \frac{ W(E_i) W(E^\mathrm{bath}) }{ W(E^\mathrm{tot}) }
+  \\=&
+  \frac{ W(E^\mathrm{tot} - E_i) }{ W(E^\mathrm{tot}) }
+  \\=&
+  \exp 
+  \left[
+    \frac{S(E^\mathrm{tot} - E_i) - S(E^\mathrm{tot})}{k_\mathrm{B}} 
+  \right]
+\end{align*}
+Thus, $P^\mathrm{C}_i$ depends on the bath's number of the states.
+We perform several approximations.
+\begin{align*}
+  S(E^\mathrm{tot} - E_i)
+  =&
+  S(E^\mathrm{tot} - \left<E\right> + \left<E\right> - E_i)
+  \\\approx&
+  S(E^\mathrm{tot} - \left<E\right>)
+  +
+  \left.
+  \frac{\partial S}{\partial E}
+  \right|_{E = E^\mathrm{tot} - \left<E\right>}
+  (\left<E\right> - E_i)
+  \\\approx&
+  S(E^\mathrm{tot} - \left<E\right>)
+  +
+  \frac{1}{T^\mathrm{bath}}
+  (\left<E\right> - E_i)
+\end{align*}
+We assumed 
+\begin{itemize}
+  \item $E^\mathrm{tot} - \left<E\right> \gg \left<E\right> - E_i$ 
+  \item
+$
+  \left.
+  \frac{\partial S}{\partial E}
+  \right|_{E = E^\mathrm{tot} - \left<E\right>}
+  \approx
+  \left.
+  \frac{\partial S}{\partial E}
+  \right|_{E = E^\mathrm{tot} - E_i}
+  =
+  \frac{1}{T^\mathrm{bath}}
+$
+\end{itemize}
+in the process of approximations.
+
+From the definition of the temperature of a microcanonical ensemble, 
+$
+  \frac{1}{T}
+  \coloneqq
+  \frac{\partial S(E)}{\partial E}
+$,
+we can split $S(E^\mathrm{tot})$ into two terms\footnote
+{
+  We can confirm this by a simple example.
+  Consider the two variables $x$ and $y(x)$. 
+  If we know the relation $\frac{\partial y(x)}{\partial x}=a$ 
+  ($a$ is constant),
+  the two varialbes relation is $y(x) = ax+b$ ($b$ is constant).
+  We can write $y(x-\Delta x)$ as below.
+  \begin{equation*}
+    y(x-\Delta x)
+    = 
+    a(x-\Delta x)
+    = 
+    ax-a\Delta x
+    =
+    y(x) - y(\Delta x)
+  \end{equation*}
+  Thus, $y(x) = y(x - \Delta x) - y(\Delta x)$.
+}.
+\begin{equation*}
+  S(E^\mathrm{tot})
+  =
+  S(E^\mathrm{tot}-\left<E\right>)
+  +
+  S(\left<E\right>)
+\end{equation*}
+
+Let's use those approximations in our calculation of $P^\mathrm{C}_i$.
+\begin{align*}
+  P^\mathrm{C}_i
+  =&
+  \exp 
+  \left[
+    \frac{S(E^\mathrm{tot} - E_i) - S(E^\mathrm{tot})}{k_\mathrm{B}} 
+  \right]
+  \\\approx&
+  \exp 
+  \left[
+    \frac
+    {
+      S(E^\mathrm{tot} - \left<E\right>)
+      +
+      \frac{1}{T^\mathrm{bath}}
+      (\left<E\right> - E_i)
+      -
+      S(E^\mathrm{tot}-\left<E\right>)
+      -
+      S(\left<E\right>)
+    }
+    {k_\mathrm{B}} 
+  \right]
+  \\=&
+  \exp 
+  \left[
+    \frac
+    {
+      \left<E\right> 
+      - 
+      E_i
+      -
+      T^\mathrm{bath}S(\left<E\right>)
+    }
+    {k_\mathrm{B} T^\mathrm{bath}} 
+  \right]
+  \\=&
+  \exp 
+  \left[
+    \frac
+    {
+      \left<E\right> 
+      -
+      T^\mathrm{bath}S(\left<E\right>)
+    }
+    {k_\mathrm{B} T^\mathrm{bath}} 
+  \right]
+  \exp 
+  \left[
+    -
+    \frac
+    {E_i}
+    {k_\mathrm{B} T^\mathrm{bath}} 
+  \right]
+  \\=&
+  \exp 
+  \left[
+    \frac
+    {F}
+    {k_\mathrm{B} T^\mathrm{bath}} 
+  \right]
+  \exp 
+  \left[
+    -
+    \frac
+    {E_i}
+    {k_\mathrm{B} T^\mathrm{bath}} 
+  \right]
+  \\=&
+  \frac{1}{Z}
+  \exp 
+  \left[
+    -
+    \frac
+    {E_i}
+    {k_\mathrm{B} T^\mathrm{bath}} 
+  \right]
+  \\\propto&
+  \exp 
+  \left[
+    -
+    \frac
+    {E_i}
+    {k_\mathrm{B} T^\mathrm{bath}} 
+  \right]
+\end{align*}
+We defined several new quantities. 
+\begin{itemize}
+  \item $\left<E\right> 
+  \coloneqq 
+  \sum_i P^\mathrm{C}_i E_i$ is average energy of the system.
+  \item $F 
+  \coloneqq 
+  \left<E\right> 
+  - T^\mathrm{bath}S(\left<E\right>)$ is free energy.
+  \item $Z \coloneqq \exp
+  \left[
+    -
+    \frac
+    {F}
+    {k_\mathrm{B} T^\mathrm{bath}} 
+  \right]$ is the partition function.
+\end{itemize}
+From the definition of a partition function above, 
+we can obtain free energy as a function of partition function.
+\begin{equation*}
+  F \coloneqq - k_\mathrm{B}T \ln Z
+\end{equation*}
+From the normalization condition of probability $P^\mathrm{C}_i$, 
+we can derive another form of a partition function.
+\begin{align*}
+  1 
+  =& 
+  \sum_i 
+  P^\mathrm{C}_i
+  \\=&
+  \sum_i 
+  \frac{1}{Z}
+  \exp 
+  \left[
+    -
+    \frac
+    {E_i}
+    {k_\mathrm{B} T^\mathrm{bath}} 
+  \right]
+  \\=&
+  \frac{1}{Z}
+  \sum_i 
+  \exp 
+  \left[
+    -
+    \frac
+    {E_i}
+    {k_\mathrm{B} T^\mathrm{bath}} 
+  \right]
+\end{align*}
+Hence, we define a partition function as a normalization factor of 
+probability.
+\begin{equation*}
+  Z 
+  \coloneqq 
+  \sum_i 
+  \exp 
+  \left[
+    -
+    \frac
+    {E_i}
+    {k_\mathrm{B} T^\mathrm{bath}} 
+  \right]
+\end{equation*}
+
+
+\end{document}
